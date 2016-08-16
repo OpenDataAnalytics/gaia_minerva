@@ -4,9 +4,6 @@ import sys
 import re
 from setuptools import setup, find_packages
 
-from gaia import __version__
-
-
 with open('README.md') as f:
     desc = f.read()
 
@@ -41,11 +38,11 @@ with open('requirements.txt') as f:
             current.append(line)
 
 setup(
-    name='gaia_minerva_plugin',
-    version=__version__,
-    description='A flexible geospatial workflow framework.',
+    name='gaia_minerva',
+    version='0.0.1',
+    description='Run gaia tasks via minerva analysis and girder jobs',
     long_description=desc,
-    author='Gaia developers',
+    author='Gaia and Minerva developers',
     author_email='kitware@kitware.com',
     license='Apache 2.0',
     classifiers=[
@@ -62,16 +59,14 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Topic :: Scientific/Engineering'
     ],
-    keywords='geospatial GIS workflow data',
+    keywords='geospatial GIS workflow data gaia minerva',
     packages=find_packages(exclude=['tests*', 'server*', 'docs']),
     require_python='>=2.6',
-    url='https://github.com/OpenDataAnalytics/gaia',
-    install_requires=requires,
+    url='https://github.com/OpenDataAnalytics/gaia_minerva',
     extras_require=extras,
     entry_points={
         'gaia.plugins': [
-            "girder.plugins.gaia_minerva_plugin.inputs = "
-            "girder.plugins.gaia_minerva_plugin.inputs",
+            "gaia_minerva.inputs = girder.plugins.gaia_minerva.inputs",
         ]
     }
 )

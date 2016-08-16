@@ -18,8 +18,8 @@
 ###############################################################################
 import os
 from girder.utility.config import _mergeConfig
-from girder.plugins.gaia_minerva_plugin.rest import geoprocess, analysis
-from girder.plugins.gaia_minerva_plugin.geoservice_proxy import GeoserviceProxy
+from girder.plugins.gaia_minerva.rest import geoprocess, analysis
+from girder.plugins.gaia_minerva.geoservice_proxy import GeoserviceProxy
 PACKAGE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Read the configuration files

@@ -1,6 +1,6 @@
 {
 "name": "Gaia-Minerva Plugin",
-"description": "Geospatial utilities for Minerva",
+"description": "Geospatial workflows for Minerva",
 "version": "0.0.1",
-"dependencies": ["minerva"]
+"dependencies": ["minerva", "jobs"]
 }

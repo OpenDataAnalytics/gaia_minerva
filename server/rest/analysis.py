@@ -67,7 +67,7 @@ class GaiaAnalysis(Resource):
             type='gaia.process',
             public=False,
             kwargs=kwargs,
-            module='girder.plugins.gaia_minerva_plugin.jobs.gaia_worker',
+            module='girder.plugins.gaia_minerva.jobs.gaia_worker',
             async=True)
         addJobOutput(job, dataset)
         self.model('job', 'jobs').scheduleJob(job)

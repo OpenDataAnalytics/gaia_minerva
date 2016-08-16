@@ -60,7 +60,8 @@ def run(job):
         if 'output' not in analysis:
             analysis['output'] = {
                 'filename': filename,
-                '_type': 'girder.plugins.gaia_minerva_plugin.inputs.MinervaVectorIO',
+                '_type':
+                    'girder.plugins.gaia_minerva.inputs.MinervaVectorIO',
                 'item_id': datasetId,
                 'token': token['_id']
             }
