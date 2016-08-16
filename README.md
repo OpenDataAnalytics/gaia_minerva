@@ -12,8 +12,6 @@ In your girder plugins directory:
 Then log in to Girder as an admin and enable the plugin.
 
 
-gaia_minerva [![Build Status](https://api.travis-ci.org/OpenDataAnalytics/gaia_minerva.svg?branch=master)](https://travis-ci.org/OpenDataAnalytics/gaia_minerva)  [![Documentation Status](https://readthedocs.org/projects/gaia/badge/?version=latest)](https://readthedocs.org/projects/gaia_minerva/?badge=latest) [![Join the chat at https://gitter.im/OpenGeoscience/gaia](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/OpenGeoscience/gaia?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 
 #### Demo use
 The following is a sample Gaia process in JSON format, using the plugin's MinervaVectorIO class.
@@ -42,6 +40,11 @@ To run this process, post a request to http://<girder_url>/api/v1/gaia_analysis/
 - datasetName = name of the output item/file
 - token = authentication token string
 - process = the above JSON
+
+
+
+gaia_minerva [![Build Status](https://api.travis-ci.org/OpenDataAnalytics/gaia_minerva.svg?branch=master)](https://travis-ci.org/OpenDataAnalytics/gaia_minerva)  [![Documentation Status](https://readthedocs.org/projects/gaia/badge/?version=latest)](https://readthedocs.org/projects/gaia_minerva/?badge=latest) [![Join the chat at https://gitter.im/OpenGeoscience/gaia](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/OpenGeoscience/gaia?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 
 
 #### License
