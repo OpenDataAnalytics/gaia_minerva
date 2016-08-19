@@ -35,7 +35,7 @@ Raster datasets are not yet supported.
 }
 ```
 
-To run this process, post a request to http://<girder_url>/api/v1/gaia_analysis/process, with the following parameters:
+To run this process, post a request to http://your.girder.url/api/v1/gaia_analysis/process, with the following parameters:
 
 - datasetName = name of the output item/file
 - token = authentication token string
