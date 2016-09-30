@@ -65,7 +65,7 @@ class GeoprocessTestCase(base.TestCase):
         with open(os.path.join(testfile_path,
                                'within_nested_buffer_process.json')) as inf:
             body_text = inf.read().replace('{basepath}', testfile_path)
-        path = '/geoprocess'
+        path = '/gaia_process'
         response = self.request(
             isJson=False,
             path=path,

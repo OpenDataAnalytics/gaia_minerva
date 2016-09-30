@@ -1,8 +1,12 @@
 import json
 import os
 import tempfile
+from base64 import b64encode
+
 import fiona
 import geopandas
+import requests
+from girder.plugins.minerva.utility.minerva_utility import decryptCredentials
 from six import StringIO
 
 from gaia.core import GaiaException
@@ -62,10 +66,30 @@ class MinervaVectorIO(GaiaIO):
             with open(self.uri, 'w') as outjson:
                 json.dump(geojson, outjson)
         elif 'dataset_type' in minerva and minerva['dataset_type'] == 'wms':
-            # Download geojson via WFS GetFeatures
-            pass
+            servers = config.getConfig()['gaia_minerva_wms']['servers']
+            if minerva['base_url'] in servers:
+                params = 'srsName=EPSG:4326&typename={name}&outputFormat=json'\
+                         + '&version=1.0.0&service=WFS&request=GetFeature'
+                url = '{base}?{params}'.format(
+                    base=minerva['base_url'].replace('/wms', '/wfs'),
+                    params=params.format(name=minerva['type_name'])
+
+                )
+                headers = {}
+                if 'credentials' in minerva:
+                    credentials = (minerva['credentials'])
+                    basic_auth = 'Basic ' + b64encode(
+                        decryptCredentials(credentials))
+                    headers = {'Authorization': basic_auth}
+
+                with open(self.uri, 'w') as outjson:
+                    r = requests.get(url, headers=headers)
+                    r.raise_for_status()
+                    json.dump(r.json(), outjson)
+            else:
+                raise GaiaException('This server {} is not supported. \n{}'.format(minerva))
         else:
-            raise GaiaException("Unsupported Item Type")
+            raise GaiaException('Unsupported data source. \n{}'.format(minerva))
 
     def read(self, epsg=None):
         """
@@ -116,12 +140,12 @@ class MinervaVectorIO(GaiaIO):
                                         size=len(filedata), name=filename)
         item_meta = self.client.getItem(self.id)['meta']
         item_meta['minerva']['geojson_file'] = {
-                "_id": upload['itemId'],
-                "name": upload['name']
+            '_id': upload['itemId'],
+            'name': upload['name']
         }
-        item_meta["minerva"]["geo_render"] = {
-                "type": "geojson",
-                "file_id": upload['_id']
+        item_meta['minerva']['geo_render'] = {
+            'type': 'geojson',
+            'file_id': upload['_id']
         }
         self.client.addMetadataToItem(self.id, item_meta)
         return os.path.join(

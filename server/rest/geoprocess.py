@@ -30,12 +30,12 @@ class GeoProcess(Resource):
     """Make various gaia requests on Girder data."""
 
     def __init__(self):
-        self.resourceName = 'geoprocess'
+        self.resourceName = 'gaia_process'
         self.config = config.getConfig()
         self.route('POST', (), self.processTask)
 
-    @access.public
-    def processTask(self, params):
+    @access.user
+    def processTask(self):
         """
         Based on the process name in the URL and JSON in the request body,
         create & send a WPS request and pass on the response.
@@ -62,7 +62,3 @@ class GeoProcess(Resource):
         .param('body', 'A JSON object containing the process parameters',
                paramType='body')
         .errorResponse('An error occurred making the request', 500))
-
-
-def load(info):
-    info['apiRoot'].geoprocess = GeoProcess()

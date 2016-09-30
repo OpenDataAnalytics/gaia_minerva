@@ -21,15 +21,17 @@ from girder.api.describe import Description
 from girder.api.rest import Resource
 from girder.plugins.minerva.utility.minerva_utility import addJobOutput
 from girder.plugins.minerva.rest.dataset import Dataset
+from girder.utility import config
 
 
 class GaiaAnalysis(Resource):
     def __init__(self):
         self.resourceName = 'gaia_analysis'
-        self.route('POST', ('process',), self.gaiaAnalysis)
+        self.config = config.getConfig()
+        self.route('POST', (), self.gaiaAnalysisTask)
 
     @access.user
-    def gaiaAnalysis(self, params):
+    def gaiaAnalysisTask(self, params):
         currentUser = self.getCurrentUser()
         datasetName = params['datasetName']
         gaia_json = params['process']
@@ -47,9 +49,6 @@ class GaiaAnalysis(Resource):
             minerva_metadata,
             'created by Gaia'
         )
-        # params = {
-        #     'count': count
-        # }
 
         # TODO change token to job token
         user, token = self.getCurrentUser(returnToken=True)
@@ -73,8 +72,8 @@ class GaiaAnalysis(Resource):
         self.model('job', 'jobs').scheduleJob(job)
         return job
 
-        GaiaAnalysis.description = (
-            Description('Run a Gaia process.')
-            .param('datasetName', 'Name of the dataset created by this analysis.')
-            .param('process', 'The process to run in Gaia JSON format')
-        )
+    gaiaAnalysisTask.description = (
+        Description('Run a Gaia analysis.')
+        .param('datasetName', 'Name of the dataset created by this analysis.')
+        .param('process', 'The process to run in Gaia JSON format')
+    )

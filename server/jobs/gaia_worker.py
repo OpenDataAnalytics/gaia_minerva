@@ -72,7 +72,7 @@ def run(job):
         process = json.loads(json.dumps(analysis), object_hook=deserialize)
         process.compute()
         job_model.updateJob(job, status=JobStatus.SUCCESS)
-    except Exception as e:
+    except Exception:
         t, val, tb = sys.exc_info()
         log = '%s: %s\n%s' % (t.__name__, repr(val), traceback.extract_tb(tb))
         # TODO only works locally
