@@ -24,7 +24,7 @@ Raster datasets are not yet supported.
   "inputs": [
     {
       "_type": "girder.plugins.gaia_minerva.inputs.MinervaVectorIO",
-      "item_id": "57b1f1c4f70ea27d9a25b8b2"
+      "item_id": "57b1fe4ef70ea28b9ffae78a"
     },
     {
       "_type": "girder.plugins.gaia_minerva.inputs.MinervaVectorIO",

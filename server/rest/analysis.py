@@ -40,7 +40,10 @@ class GaiaAnalysis(Resource):
             'dataset_type': 'geojson',
             'source_type': 'gaia_process',
             'original_type': 'json',
-            'process_json': gaia_json
+            'process_json': gaia_json,
+            'source': {
+                'layer_source': 'Gaia'
+            }
         }
 
         datasetResource = Dataset()
