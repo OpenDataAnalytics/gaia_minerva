@@ -6,12 +6,20 @@ gaia_minerva is a Girder plugin that allows Gaia geospatial processes to be run 
 #### Installation
 
 In your girder plugins directory:
-- pip install -e .
-- pip install -r requirements.txt
+
+```
+pip install -e .
+pip install -r requirements.txt
+```
 
 Then log in to Girder as an admin and enable the plugin.
 
+Finally, you will need to run the 'import_analyses.py' script under girder/plugins/minerva/utilities:
 
+```
+cd girder/plugins/minerva/utilities
+python import_analyses.py --username <username> --password <password> --host <girder_host> --port <girder_port> --path ../analyses/gaia/
+```
 
 #### Demo use
 The following is a sample Gaia process in JSON format, using the plugin's MinervaVectorIO class.
