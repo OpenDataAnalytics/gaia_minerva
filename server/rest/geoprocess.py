@@ -22,7 +22,7 @@ from girder.api.describe import Description
 from girder.utility import config
 import cherrypy
 import json
-from gaia.parser import deserialize
+from gaia.parser import deserialize, valid_processes
 import gaia.formats
 
 
@@ -33,6 +33,17 @@ class GeoProcess(Resource):
         self.resourceName = 'gaia_process'
         self.config = config.getConfig()
         self.route('POST', (), self.processTask)
+        self.route('GET', ('classes',), self.classDictTask)
+
+    @access.user
+    def classDictTask(self, params=None):
+        return {
+            'processes': valid_processes
+        }
+
+    classDictTask.description = (
+        Description('Get a list of available Gaia processes and inputs')
+        .errorResponse('An error occurred making the request', 500))
 
     @access.user
     def processTask(self):
