@@ -17,8 +17,8 @@ Then log in to Girder as an admin and enable the plugin.
 Finally, you will need to run the 'import_analyses.py' script under girder/plugins/minerva/utilities:
 
 ```
-cd girder/plugins/minerva/utilities
-python import_analyses.py --username <username> --password <password> --host <girder_host> --port <girder_port> --path ../analyses/gaia/
+cd plugins/minerva/utility
+python import_analyses.py --username <username> --password <password> --host <girder_host> --port <girder_port> --path ../../gaia_minerva/analyses/gaia/
 ```
 
 #### Demo use

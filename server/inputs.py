@@ -12,7 +12,7 @@ from six import StringIO
 from gaia.core import GaiaException
 from gaia.filters import filter_pandas
 from gaia.inputs import GaiaIO
-from gaia import formats
+from gaia import formats, types
 from girder.utility import config
 import girder_client
 
@@ -22,6 +22,7 @@ class MinervaVectorIO(GaiaIO):
     Interface to Minerva item geojson
     """
 
+    type = types.VECTOR
     default_output = formats.JSON
 
     def __init__(self, item_id=None, token=None, name='gaia_result.json',

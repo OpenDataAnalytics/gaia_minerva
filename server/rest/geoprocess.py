@@ -22,7 +22,7 @@ from girder.api.describe import Description
 from girder.utility import config
 import cherrypy
 import json
-from gaia.parser import deserialize, valid_processes
+from gaia.parser import deserialize
 import gaia.formats
 
 
@@ -37,6 +37,7 @@ class GeoProcess(Resource):
 
     @access.user
     def classDictTask(self, params=None):
+        from gaia.parser import valid_processes
         return {
             'processes': valid_processes
         }
