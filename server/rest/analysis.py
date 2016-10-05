@@ -16,6 +16,8 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 ###############################################################################
+import json
+
 from girder.api import access
 from girder.api.describe import Description
 from girder.api.rest import Resource
@@ -34,7 +36,7 @@ class GaiaAnalysis(Resource):
     def gaiaAnalysisTask(self, params):
         currentUser = self.getCurrentUser()
         datasetName = params['datasetName']
-        gaia_json = params['process']
+        gaia_json = json.dumps(self.getBodyJson())
 
         minerva_metadata = {
             'dataset_type': 'geojson',
@@ -78,5 +80,6 @@ class GaiaAnalysis(Resource):
     gaiaAnalysisTask.description = (
         Description('Run a Gaia analysis.')
         .param('datasetName', 'Name of the dataset created by this analysis.')
-        .param('process', 'The process to run in Gaia JSON format')
+        .param('process', 'The process to run in Gaia JSON format',
+               paramType='body')
     )
