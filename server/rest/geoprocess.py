@@ -47,7 +47,7 @@ class GeoProcess(Resource):
         .errorResponse('An error occurred making the request', 500))
 
     @access.user
-    def processTask(self):
+    def processTask(self, params=None):
         """
         Based on the process name in the URL and JSON in the request body,
         create & send a WPS request and pass on the response.

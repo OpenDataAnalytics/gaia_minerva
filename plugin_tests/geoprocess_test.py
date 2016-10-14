@@ -54,6 +54,10 @@ class GeoprocessTestCase(base.TestCase):
         """
         super(GeoprocessTestCase, self).setUp()
 
+        self._user = self.model('user').createUser(
+            'minervauser', 'password', 'minerva', 'user',
+            'minervauser@example.com')
+
         """
          TODO: Figure out the best way of making Gaia core functionality
          independent of Girder while still being able to load it as a plugin.
@@ -68,12 +72,14 @@ class GeoprocessTestCase(base.TestCase):
                                'within_nested_buffer_process.json')) as inf:
             body_text = inf.read().replace('{basepath}', testfile_path)
         path = '/gaia_process'
+
         response = self.request(
             isJson=False,
             path=path,
             method='POST',
             body=body_text,
-            type='application/json'
+            type='application/json',
+            user=self._user
         )
         output = json.loads(response.body[0])
         with open(os.path.join(
