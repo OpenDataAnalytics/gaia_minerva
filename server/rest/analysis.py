@@ -81,6 +81,7 @@ class GaiaAnalysis(Resource):
 
     gaiaAnalysisTask.description = (
         Description('Run a Gaia analysis.')
-        .param('gaia', 'The process to run in Gaia JSON format',
+        .param('analysis',
+               'JSON describing the output dataset name and Gaia process',
                paramType='body')
     )

@@ -3,23 +3,29 @@ API Documentation
 
 The gaia-minerva plugin provides a few Girder API endpoints:
 
-- /gaia/analysis
-    - Runs a Gaia process on data stored within Minerva, using the plugin's 'MinervaVectorIO' input class.  For example:
+- /gaia/analysis (POST)
+    - Runs a Gaia process on data stored within Minerva, using the plugin's 'MinervaVectorIO' input class. The body of the request should be a JSON object with two parameters:For example:
+        - datasetName: The title of the dataset
+        - process: The Gaia process and inputs to use
+    - Example:
 
       ::
 
         {
-          "_type": "gaia.geo.IntersectsProcess"
-          "inputs": [
-            {
-              "_type": "girder.plugins.gaia_minerva.inputs.MinervaVectorIO",
-              "item_id": "57b1fe4ef70ea28b9ffae78a"
-            },
-            {
-              "_type": "girder.plugins.gaia_minerva.inputs.MinervaVectorIO",
-              "item_id": "57b1f1d2f70ea27d9a25b8b5"
+          "datasetName": "Intersection Demo",
+          "process": {
+              "_type": "gaia.geo.IntersectsProcess"
+              "inputs": [
+                {
+                  "_type": "girder.plugins.gaia_minerva.inputs.MinervaVectorIO",
+                  "item_id": "57b1fe4ef70ea28b9ffae78a"
+                },
+                {
+                  "_type": "girder.plugins.gaia_minerva.inputs.MinervaVectorIO",
+                  "item_id": "57b1f1d2f70ea27d9a25b8b5"
+                }
+              ],
             }
-          ],
         }
 
     - The 'item_id' refers to the item id of the Minerva dataset

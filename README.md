@@ -6,23 +6,40 @@ Official documentation is available at http://gaia-minerva-plugin.readthedocs.io
 
 #### Installation
 
-In your girder plugins directory:
+Make sure that you install and activate the Minerva plugin first.
+
+Afterward, in your girder plugins directory:
 
 ```
+git clone https://github.com/OpenDataAnalytics/gaia_minerva.git
+cd gaia_minerva
 pip install -e .
 pip install -r requirements.txt
 ```
 
 Then log in to Girder as an admin and enable the plugin.
 
-Finally, you will need to run the 'import_analyses.py' script under girder/plugins/minerva/utilities:
+Finally, you will need to run the Minerva 'import_analyses.py' to enable Gaia analyses in Minerva.
+From the girder plugins directory:
 
 ```
-cd plugins/minerva/utility
+cd minerva/utility
 python import_analyses.py --username <username> --password <password> --host <girder_host> --port <girder_port> --path ../../gaia_minerva/analyses/gaia/
 ```
 
-#### Demo use
+Use a Girder admin username and password to run the above command.
+
+### Minerva UI usage
+In Minerva's analyses tab, 'Gaia process' should now be visible.  Click on it to bring up the Gaia Process widget.
+Enter a name for your output dataset and select from the available processes.
+Once you select a process, choose the GeoJSON or WMS dataset(s) you would like to use as inputs,
+and fill in values for whatever arguments the process may require.  Then click the Submit button.
+The process will be added to the jobs queue, and once finished the result should appear in the
+Datasets tab.
+
+
+
+#### API use
 The following is a sample Gaia process in JSON format, using the plugin's MinervaVectorIO class.
 The item_id is the Girder item id of the Minerva dataset.
 Raster datasets are not yet supported.
@@ -50,7 +67,26 @@ To run this process, post a request to http://<girder_url>/api/v1/gaia_analysis/
 - token = authentication token string
 - process = the above JSON
 
+Example:
 
+```
+{
+    "datasetName": "Demo Gaia Process Output"
+    "process": {
+      "inputs": [
+        {
+          "_type": "girder.plugins.gaia_minerva.inputs.MinervaVectorIO",
+          "item_id": "57b1fe4ef70ea28b9ffae78a"
+        },
+        {
+          "_type": "girder.plugins.gaia_minerva.inputs.MinervaVectorIO",
+          "item_id": "57b1f1d2f70ea27d9a25b8b5"
+        }
+      ],
+      "_type": "gaia.geo.IntersectsProcess"
+    }
+}
+```
 
 gaia_minerva [![Build Status](https://api.travis-ci.org/OpenDataAnalytics/gaia_minerva.svg?branch=master)](https://travis-ci.org/OpenDataAnalytics/gaia_minerva)  [![Documentation Status](https://readthedocs.org/projects/gaia/badge/?version=latest)](https://readthedocs.org/projects/gaia_minerva/?badge=latest) [![Join the chat at https://gitter.im/OpenGeoscience/gaia](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/OpenGeoscience/gaia?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -58,7 +94,7 @@ gaia_minerva [![Build Status](https://api.travis-ci.org/OpenDataAnalytics/gaia_m
 
 #### License
 
-Copyright 2015 Kitware Inc.
+Copyright 2015 Kitware Inc. and Epidemico Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 

@@ -169,4 +169,4 @@ Install Gaia-Minerva as a Girder plugin
     cd GIRDER_DIR/plugins/minerva//utility
     python import_analyses.py --username <girder__admin_user> --password <password> --host <girder_host> --port <girder_port> --path ../../gaia_minerva/analyses/gaia/
 
-- You should now see 'Gaia process' in the Minerva 'Analyses' tab.
+- You should now see 'Gaia process' in the Minerva 'Analyses' tab.  Click on it to begin running spatial analyses.
