@@ -1,0 +1,9 @@
+setup.cfg
+gaia_minerva.egg-info/PKG-INFO
+gaia_minerva.egg-info/SOURCES.txt
+gaia_minerva.egg-info/dependency_links.txt
+gaia_minerva.egg-info/entry_points.txt
+gaia_minerva.egg-info/top_level.txt
+plugin_tests/__init__.py
+plugin_tests/geoprocess_test.py
+plugin_tests/geoservice_proxy_test.py

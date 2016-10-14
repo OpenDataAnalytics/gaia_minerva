@@ -1,0 +1,3 @@
+[gaia.plugins]
+girder.plugins.gaia_minerva.inputs = girder.plugins.gaia_minerva.inputs
+
