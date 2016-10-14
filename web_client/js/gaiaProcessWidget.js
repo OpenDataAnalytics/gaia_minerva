@@ -89,7 +89,7 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
         this.requiredArguments = _.first(_.values(JSON.parse(process))).required_args;
 
         var gaiaArgsView = _.map(this.requiredArguments, _.bind(function (value) {
-            return minerva.templates.gaiaProcessArgsWidget({
+            return girder.templates.gaiaProcessArgsWidget({
                 value: value
             });
         }, this));
@@ -97,17 +97,13 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
         var gaiaInputsView = _.flatten(_.map(this.requiredInputs, _.bind(function (value) {
             var numberOfPossibleLayers = value.max;
             return _.times(numberOfPossibleLayers, _.bind(function () {
-                return minerva.templates.gaiaProcessInputsWidget({
+                return girder.templates.gaiaProcessInputsWidget({
                     layers: this.layers,
                     type: value.type
                 });
             }, this));
         }, this)));
         $('#m-gaia-process-inputs').append(gaiaInputsView);
-    },
-
-    structureGaiaJSON: function (process) {
-
     },
 
     splitOnCaps: function (string) {
@@ -134,7 +130,7 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
                     var processName = _.first(_.keys(process));
                     var formattedProcessName = this.splitOnCaps(processName);
                     return {title: formattedProcessName, data: JSON.stringify(process)};
-                }, this)).sort();
+                }, this));
                 this.render();
             }
         }, this));
@@ -163,7 +159,7 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
                 return {title: dataset.get('name'), id: dataset.get('_id')};
             });
         }
-        var modal = this.$el.html(minerva.templates.gaiaProcessWidget({
+        var modal = this.$el.html(girder.templates.gaiaProcessWidget({
             processes: this.processes
         })).girderModal(this).on('ready.girder.modal', _.bind(function () {
         }, this));
