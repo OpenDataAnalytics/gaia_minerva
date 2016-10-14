@@ -37,10 +37,12 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
                     inputParams = JSON.parse(value);
                 }
                 if (!inputParams) {
-                    if (!isNaN(value)) {
-                        args[name] = parseFloat(value);
-                    } else {
-                        args[name] = value;
+                    if (name) {
+                        if (!isNaN(value)) {
+                            args[name] = parseFloat(value);
+                        } else {
+                            args[name] = value;
+                        }
                     }
                 } else {
                     if (inputParams.type) {
@@ -54,12 +56,17 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
                 }
             });
 
-            var query = Object.assign({
-                '_type': 'gaia.geo.' + process
-            }, {inputs: inputs}, args);
+            var gaia = Object.assign({'_type': 'gaia.geo.' + process}, {inputs: inputs}, args);
+
+            console.log(JSON.stringify(gaia));
+
+            var query = Object.assign({'datasetName': datasetName},
+                {'process': gaia});
+
+            console.log(JSON.stringify(query));
 
             girder.restRequest({
-                path: 'gaia_analysis?datasetName=' + datasetName,
+                path: 'gaia_analysis',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(query)

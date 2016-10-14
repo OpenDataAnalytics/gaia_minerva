@@ -4,7 +4,7 @@ module.exports = {
         complexity: [2, 12]
     },
     globals: {
-        gaia_minerva: true,
+        minerva: true,
         geo: true,
         jsonPath: true,
         colorbrewer: true,

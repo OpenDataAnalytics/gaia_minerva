@@ -35,8 +35,10 @@ class GaiaAnalysis(Resource):
     @access.user
     def gaiaAnalysisTask(self, params):
         currentUser = self.getCurrentUser()
-        datasetName = params['datasetName']
-        gaia_json = json.dumps(self.getBodyJson())
+
+        body_json = self.getBodyJson()
+        gaia_json = json.dumps(body_json['process'])
+        datasetName = body_json['datasetName']
 
         minerva_metadata = {
             'dataset_type': 'geojson',
@@ -44,7 +46,7 @@ class GaiaAnalysis(Resource):
             'original_type': 'json',
             'process_json': gaia_json,
             'source': {
-                'layer_source': 'Gaia'
+                'layer_source': 'GeoJSON'
             }
         }
 
@@ -79,7 +81,6 @@ class GaiaAnalysis(Resource):
 
     gaiaAnalysisTask.description = (
         Description('Run a Gaia analysis.')
-        .param('datasetName', 'Name of the dataset created by this analysis.')
-        .param('process', 'The process to run in Gaia JSON format',
+        .param('gaia', 'The process to run in Gaia JSON format',
                paramType='body')
     )

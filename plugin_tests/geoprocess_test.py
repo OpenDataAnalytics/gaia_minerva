@@ -64,7 +64,7 @@ class GeoprocessTestCase(base.TestCase):
          For now, this path hack does the trick.
         """
 
-    def testFakeProcess(self):
+    def testGaiaProcess(self):
         """
         Test the generated XML body for a vec:Query WPS request
         """
@@ -89,3 +89,24 @@ class GeoprocessTestCase(base.TestCase):
         self.assertIn('features', output)
         self.assertEquals(len(expected_json['features']),
                           len(output['features']))
+
+    def testGaiaProcessClasses(self):
+        """
+        Test the generated XML body for a vec:Query WPS request
+        """
+
+        path = '/gaia_process/classes'
+
+        response = self.request(
+            isJson=False,
+            path=path,
+            method='GET',
+            type='application/json',
+            user=self._user
+        )
+        output = json.loads(response.body[0])
+        self.assertTrue('processes' in output)
+        for process in output['processes']:
+            self.assertTrue(u'Process' in process.keys()[0])
+            self.assertTrue(u'required_inputs' in process.values()[0].keys())
+            self.assertTrue(u'required_args' in process.values()[0].keys())
