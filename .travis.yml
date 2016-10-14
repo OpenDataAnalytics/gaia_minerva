@@ -46,9 +46,8 @@ before_install:
     - pip install -e .
     - pip install requirements.txt
     - cd $HOME/build
-    # - git clone https://github.com/OpenDataAnalytics/gaia_minerva.git
-    # - mv gaia_minerva/analyses/gaia girder/plugins/minerva/analyses
-    # - cp -r gaia_minerva girder/plugins
+    - git clone https://github.com/OpenDataAnalytics/gaia_minerva.git
+    - cp -r gaia_minerva girder/plugins
 
     - cd girder
     # copy the placeholder bsve credentials, needed even though we mock bsve api calls
