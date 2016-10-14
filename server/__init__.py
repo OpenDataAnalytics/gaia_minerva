@@ -19,11 +19,10 @@
 import os
 from girder.utility.config import _mergeConfig
 from girder.plugins.gaia_minerva.rest import geoprocess, analysis
-from girder.plugins.gaia_minerva.geoservice_proxy import GeoserviceProxy
 PACKAGE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Read the configuration files
-_cfgs = (('../gaia/conf', 'gaia.cfg'), ('conf', 'gaia_minerva.cfg'))
+_cfgs = (('conf', 'gaia_minerva.cfg'),)
 for (path, f) in _cfgs:
     configPath = os.path.join(PACKAGE_DIR, path, f)
     if os.path.exists(configPath):
@@ -31,6 +30,5 @@ for (path, f) in _cfgs:
 
 
 def load(info):
-    info['serverRoot'].geo = GeoserviceProxy()
     info['apiRoot'].gaia_analysis = analysis.GaiaAnalysis()
     info['apiRoot'].gaia_process = geoprocess.GeoProcess()

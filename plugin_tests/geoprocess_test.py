@@ -23,14 +23,16 @@ from tests import base
 # Need to set the environment variable before importing girder
 os.environ['GIRDER_PORT'] = os.environ.get('GIRDER_TEST_PORT', '20200')
 testfile_path = os.path.join(os.path.dirname(
-    os.path.realpath(__file__)), '../tests/data')
+    os.path.realpath(__file__)), 'data')
 
 
 def setUpModule():
     """
     Enable the gaia plugin and start the server.
     """
-    base.enabledPlugins.append('gaia')
+    base.enabledPlugins.append('minerva')
+    base.enabledPlugins.append('gaia_minerva')
+    base.enabledPlugins.append('jobs')
     base.startServer(False)
 
 
