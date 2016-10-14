@@ -6,7 +6,8 @@ The gaia-minerva plugin provides a few Girder API endpoints:
 - /gaia/analysis
     - Runs a Gaia process on data stored within Minerva, using the plugin's 'MinervaVectorIO' input class.  For example:
 
-      ```
+      ::
+
         {
           "_type": "gaia.geo.IntersectsProcess"
           "inputs": [
@@ -20,7 +21,7 @@ The gaia-minerva plugin provides a few Girder API endpoints:
             }
           ],
         }
-      ```
+
     - The 'item_id' refers to the item id of the Minerva dataset
 
 - /gaia_process/classes (GET)
@@ -29,7 +30,8 @@ The gaia-minerva plugin provides a few Girder API endpoints:
 - /gaia_process (POST)
     - accepts a JSON body as input which describes the Gaia process to run, along with required inputs and arguments.  For example:
 
-      ```
+      ::
+
         {
           "_type": "gaia.geo.WithinProcess",
           "inputs": [
@@ -66,5 +68,6 @@ The gaia-minerva plugin provides a few Girder API endpoints:
                 "_type": "gaia.inputs.FeatureIO"
             }
         }
-      ```
+
+
 
