@@ -40,5 +40,4 @@ For example:
           ],
           "_type": "gaia.geo.IntersectsProcess"
         }
-    }
 
