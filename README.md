@@ -2,6 +2,7 @@
 
 gaia_minerva is a Girder plugin that allows Gaia geospatial processes to be run on Minerva datasets via girder jobs.
 
+Official documentation is available at http://gaia-minerva-plugin.readthedocs.io/
 
 #### Installation
 
