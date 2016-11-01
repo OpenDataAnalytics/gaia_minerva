@@ -39,7 +39,8 @@ class GeoProcess(Resource):
     def classDictTask(self, params=None):
         from gaia.parser import valid_processes
         return {
-            'processes': valid_processes
+            'processes': valid_processes,
+            'gaia_minerva_wms': self.config['gaia_minerva_wms']['servers']
         }
 
     classDictTask.description = (

@@ -134,7 +134,7 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
             type: 'GET'
         }).done(_.bind(function (data) {
             if (data && data.processes) {
-                if (data.gaia_minerva_wms) this.gaia_minerva_wms = data.gaia_minerva_wms.servers;
+                if (data.gaia_minerva_wms) this.gaia_minerva_wms = data.gaia_minerva_wms;
                 this.processes = data.processes.map(_.bind(function (process) {
                     var processName = _.first(_.keys(process));
                     var formattedProcessName = this.splitOnCaps(processName);
