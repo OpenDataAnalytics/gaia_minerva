@@ -105,7 +105,7 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
             var numberOfPossibleLayers = value.max;
             return _.times(numberOfPossibleLayers, _.bind(function () {
                 return girder.templates.gaiaProcessInputsWidget({
-                    layers: this.layers,
+                    groups: this.layers,
                     type: value.type
                 });
             }, this));
@@ -157,15 +157,10 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
     },
 
     render: function () {
-        this.sourceDataset = _.groupBy(
+        this.layers = _.groupBy(
             _.filter(this.collection.models, this.getSourceNameFromModel),
             this.getSourceNameFromModel
         );
-        if (this.sourceDataset && this.sourceDataset.GeoJSON) {
-            this.layers = this.sourceDataset.GeoJSON.map(function (dataset) {
-                return {title: dataset.get('name'), id: dataset.get('_id')};
-            });
-        }
         var modal = this.$el.html(girder.templates.gaiaProcessWidget({
             processes: this.processes
         })).girderModal(this).on('ready.girder.modal', _.bind(function () {
