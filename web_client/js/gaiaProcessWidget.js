@@ -106,7 +106,8 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
             return _.times(numberOfPossibleLayers, _.bind(function () {
                 return girder.templates.gaiaProcessInputsWidget({
                     groups: this.layers,
-                    type: value.type
+                    type: value.type,
+                    gaia_minerva_wms: this.gaia_minerva_wms
                 });
             }, this));
         }, this)));
@@ -133,6 +134,7 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
             type: 'GET'
         }).done(_.bind(function (data) {
             if (data && data.processes) {
+                if (data.gaia_minerva_wms) this.gaia_minerva_wms = data.gaia_minerva_wms.servers;
                 this.processes = data.processes.map(_.bind(function (process) {
                     var processName = _.first(_.keys(process));
                     var formattedProcessName = this.splitOnCaps(processName);
@@ -149,6 +151,7 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
         this.requiredInputs = {};
         // Get list of available processes on initialize
         this.renderListOfAvailableProcesses();
+        this.gaia_minerva_wms;
         this.layers = [];
     },
 
