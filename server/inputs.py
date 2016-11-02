@@ -160,7 +160,7 @@ class MinervaVectorIO(GaiaIO):
                                         size=len(filedata), name=filename)
         item_meta = self.client.getItem(self.id)['meta']
         item_meta['minerva']['geojson_file'] = {
-            '_id': upload['itemId'],
+            '_id': upload['_id'],
             'name': upload['name']
         }
         item_meta['minerva']['geo_render'] = {

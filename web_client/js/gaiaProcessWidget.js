@@ -48,7 +48,7 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
                     if (inputParams.type) {
                         inputs.push({
                             '_type': 'girder.plugins.gaia_minerva.inputs.Minerva' + capitalizeFirstLetter(inputParams.type) + 'IO',
-                            'item_id': inputParams.layer.id
+                            'item_id': inputParams.layer._id
                         });
                     } else {
                         process = _.first(_.keys(inputParams));
@@ -56,7 +56,7 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
                 }
             });
 
-            var gaia = Object.assign({'_type': 'gaia.geo.' + process}, {inputs: inputs}, args);
+            var gaia = Object.assign({'_type': process}, {inputs: inputs}, args);
 
             console.log(JSON.stringify(gaia));
 
@@ -137,7 +137,7 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
                 if (data.gaia_minerva_wms) this.gaia_minerva_wms = data.gaia_minerva_wms;
                 this.processes = data.processes.map(_.bind(function (process) {
                     var processName = _.first(_.keys(process));
-                    var formattedProcessName = this.splitOnCaps(processName);
+                    var formattedProcessName = this.splitOnCaps(processName.split('.').pop());
                     return {title: formattedProcessName, data: JSON.stringify(process)};
                 }, this));
                 this.render();
