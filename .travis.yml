@@ -57,7 +57,7 @@ before_install:
     - git clone https://github.com/Kitware/minerva.git
     - pip install -r minerva/requirements.txt
     - cd $HOME/build
-    - pip install -r requirements.txt
+    - pip install -r OpenDataAnalytics/gaia_minerva/requirements.txt
     - mv OpenDataAnalytics/gaia_minerva girder/plugins
     - cp girder/plugins/minerva/server/conf/minerva.dist.cfg girder/plugins/minerva/server/conf/minerva.local.cfg
 
