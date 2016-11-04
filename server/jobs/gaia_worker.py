@@ -25,6 +25,7 @@ from gaia.parser import deserialize
 from girder.utility.model_importer import ModelImporter
 from girder.plugins.jobs.constants import JobStatus
 
+
 def run(job):
     job_model = ModelImporter.model('job', 'jobs')
     job_model.updateJob(job, status=JobStatus.RUNNING)
