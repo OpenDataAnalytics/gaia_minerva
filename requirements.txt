@@ -12,6 +12,6 @@ pip>=6.0
 
 # All main requirements must go here, optional sections
 # last until the next optional tag or to the end of the file.
--e git+https://github.com/OpenDataAnalytics/gaia.git@minerva_compatibility#egg=gaia-minerva-branch.egg
+-e git+https://github.com/OpenDataAnalytics/gaia.git#egg=gaia.egg
 
 
