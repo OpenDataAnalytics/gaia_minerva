@@ -66,7 +66,7 @@ before_install:
     # copy the placeholder bsve credentials, needed even though we mock bsve api calls
     - cp plugins/minerva/server/jobs/bsve.json.in plugins/minerva/server/jobs/bsve.json
     # copy the minerva jobs
-    - cp plugins/gaia_minerva/analyses/gaia ../minerva/analyses/.
+    - cp -r plugins/gaia_minerva/analyses/gaia plugins/minerva/analyses/.
 
     # Show the memory state; this lets us more quickly determine when the
     # travis environment is bad
