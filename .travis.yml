@@ -20,9 +20,15 @@ addons:
   apt:
     packages:
     - libpng12-dev
-    - libgdal1-dev
     - pkg-config
     - libnetcdf-dev
+    - postgresql-9.4-postgis-2.2
+    - python-dev
+    - libgdal1-dev
+    - libblas-dev
+    - liblapack-dev
+    - libatlas-base-dev
+    - gfortran
 
 before_install:
     # update pip for binary wheel caching
@@ -31,6 +37,8 @@ before_install:
     # Install gaia
     - git clone https://github.com/OpenDataAnalytics/gaia.git
     - cd gaia
+    - export CPLUS_INCLUDE_PATH=/usr/include/gdal
+    - export C_INCLUDE_PATH=/usr/include/gdal
     - pip install -e .
     - pip install requirements.txt
     - cd $HOME/build
