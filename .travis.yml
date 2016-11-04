@@ -40,7 +40,7 @@ before_install:
     - export CPLUS_INCLUDE_PATH=/usr/include/gdal
     - export C_INCLUDE_PATH=/usr/include/gdal
     - pip install -e .
-    - pip install requirements.txt
+    - pip install -r requirements.txt
     - cd $HOME/build
 
     # gaia_minerva has been cloned to Kitware/minerva by travis
@@ -51,9 +51,13 @@ before_install:
     - git clone https://github.com/girder/girder.git
     - cd girder
     - git checkout `cat $TRAVIS_BUILD_DIR/.girder-version`
+    - pip install -r requirements.txt
+    - pip install -r requirements-dev.txt
     - cd plugins
     - git clone https://github.com/Kitware/minerva.git
+    - pip install -r minerva/requirements.txt
     - cd $HOME/build
+    - pip install -r requirements.txt
     - mv OpenDataAnalytics/gaia_minerva girder/plugins
     - cp girder/plugins/minerva/server/conf/minerva.dist.cfg girder/plugins/minerva/server/conf/minerva.local.cfg
 
