@@ -12,17 +12,19 @@ cache:
   - $HOME/.cache
 
 sudo: false
+dist: trusty
 
 compiler:
     - gcc
 
 addons:
+  postgresql: "9.5"
   apt:
     packages:
     - libpng12-dev
     - pkg-config
     - libnetcdf-dev
-    - postgresql-9.4-postgis-2.2
+    - postgresql-9.5-postgis-2.3
     - python-dev
     - libgdal1-dev
     - libblas-dev
@@ -44,6 +46,7 @@ before_install:
     # gaia_minerva has been cloned to Kitware/minerva by travis
     # girder and minerva need to be cloned and then minerva moved under girder
     # remove existing girder dir, it remains from caching operations
+    - cd $HOME/build
     - rm -rf girder
     - git clone https://github.com/girder/girder.git
     - cd girder
