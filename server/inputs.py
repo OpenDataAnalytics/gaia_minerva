@@ -111,7 +111,7 @@ class MinervaVectorIO(GaiaIO):
         else:
             raise GaiaException('Unsupported data source. \n{}'.format(minerva))
 
-    def read(self, epsg=None):
+    def read(self, epsg=None, **kwargs):
         """
         Read vector data from Girder
         :param format: Format to return data in (default is GeoDataFrame)

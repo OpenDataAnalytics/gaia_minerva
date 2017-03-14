@@ -36,16 +36,13 @@ before_install:
 
     # Install gaia
     - git clone https://github.com/OpenDataAnalytics/gaia.git
-    - cd gaia
     - export CPLUS_INCLUDE_PATH=/usr/include/gdal
     - export C_INCLUDE_PATH=/usr/include/gdal
-    - pip install -e .
-    - pip install -r requirements.txt
-    - cd $HOME/build
+    - pip install -e gaia/.
+    - pip install -r gaia/requirements.txt
 
     # gaia_minerva has been cloned to Kitware/minerva by travis
     # girder and minerva need to be cloned and then minerva moved under girder
-    - cd $HOME/build
     # remove existing girder dir, it remains from caching operations
     - rm -rf girder
     - git clone https://github.com/girder/girder.git
@@ -57,8 +54,9 @@ before_install:
     - git clone https://github.com/Kitware/minerva.git
     - pip install -r minerva/requirements.txt
     - cd $HOME/build
-    - pip install -r OpenDataAnalytics/gaia_minerva/requirements.txt
-    - mv OpenDataAnalytics/gaia_minerva girder/plugins
+    - mv OpenDataAnalytics/gaia_minerva girder/plugins/.
+    - pip install -r girder/plugins/gaia_minerva/requirements.txt
+    - pip install -e girder/plugins/gaia_minerva/.
     - cp girder/plugins/minerva/server/conf/minerva.dist.cfg girder/plugins/minerva/server/conf/minerva.local.cfg
 
 
