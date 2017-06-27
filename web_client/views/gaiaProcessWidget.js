@@ -1,7 +1,13 @@
+import { restRequest } from 'girder/rest';
+import events from 'girder/events';
+import View from '../../../minerva/web_external/views/view';
+import gaiaProcessArgsWidgetTemplate from '../templates/gaiaProcessArgsWidget.pug';
+import gaiaProcessInputsWidgetTemplate from '../templates/gaiaProcessInputsWidget.pug';
+import gaiaProcessWidgetTemplate from '../templates/gaiaProcessWidget.pug';
 /**
 * This widget is used to add/edit gaia processes.
 */
-minerva.views.GaiaProcessWidget = minerva.View.extend({
+var GaiaProcessWidget = View.extend({
 
     events: {
         'submit #m-gaia-process-form': function (e) {
@@ -65,13 +71,13 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
 
             console.log(JSON.stringify(query));
 
-            girder.restRequest({
+            restRequest({
                 path: 'gaia_analysis',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(query)
             }).done(_.bind(function () {
-                girder.events.trigger('m:job.created');
+                events.trigger('m:job.created');
                 this.$el.modal('hide');
             }, this));
         },
@@ -96,7 +102,7 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
         this.requiredArguments = _.first(_.values(JSON.parse(process))).required_args;
 
         var gaiaArgsView = _.map(this.requiredArguments, _.bind(function (value) {
-            return girder.templates.gaiaProcessArgsWidget({
+            return gaiaProcessArgsWidgetTemplate({
                 value: value
             });
         }, this));
@@ -104,7 +110,7 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
         var gaiaInputsView = _.flatten(_.map(this.requiredInputs, _.bind(function (value) {
             var numberOfPossibleLayers = value.max;
             return _.times(numberOfPossibleLayers, _.bind(function () {
-                return girder.templates.gaiaProcessInputsWidget({
+                return gaiaProcessInputsWidgetTemplate({
                     groups: this.layers,
                     type: value.type,
                     gaia_minerva_wms: this.gaia_minerva_wms
@@ -129,7 +135,7 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
     },
 
     renderListOfAvailableProcesses: function () {
-        girder.restRequest({
+        restRequest({
             path: 'gaia_process/classes',
             type: 'GET'
         }).done(_.bind(function (data) {
@@ -164,7 +170,7 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
             _.filter(this.collection.models, this.getSourceNameFromModel),
             this.getSourceNameFromModel
         );
-        var modal = this.$el.html(girder.templates.gaiaProcessWidget({
+        var modal = this.$el.html(gaiaProcessWidgetTemplate({
             processes: this.processes
         })).girderModal(this).on('ready.girder.modal', _.bind(function () {
         }, this));
@@ -172,3 +178,5 @@ minerva.views.GaiaProcessWidget = minerva.View.extend({
         return this;
     }
 });
+
+export default GaiaProcessWidget;
