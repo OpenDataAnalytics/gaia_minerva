@@ -78,7 +78,10 @@ class MinervaVectorIO(GaiaIO):
         minerva = self.meta['meta']['minerva']
         if 'geojson_file' in minerva:
             # Uploaded GeoJSON is stored as a file in Girder
-            self.client.downloadFile(minerva['geojson_file']['_id'], self.uri)
+            result = self.client.sendRestRequest(
+                'GET', 'minerva_dataset/' + self.id + '/download', jsonResp=False)
+            with open(self.uri, 'w') as tempFile:
+                tempFile.write(result.content)
         elif 'geojson' in minerva:
             # Mongo collection is stored in item meta
             geojson = json.loads(minerva['geojson']['data'])
