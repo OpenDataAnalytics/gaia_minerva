@@ -11,7 +11,7 @@ cache:
   - $HOME/virtualenv/python2.7.9
   - $HOME/.cache
 
-sudo: false
+sudo: required
 dist: trusty
 
 compiler:
@@ -26,20 +26,20 @@ addons:
     - libnetcdf-dev
     - postgresql-9.5-postgis-2.3
     - python-dev
-    - libgdal1-dev
     - libblas-dev
     - liblapack-dev
     - libatlas-base-dev
     - gfortran
 
 before_install:
-    # update pip for binary wheel caching
-    - pip install -U pip virtualenv
+    - export CPLUS_INCLUDE_PATH=/usr/include/gdal
+    - export C_INCLUDE_PATH=/usr/include/gdal
+    - sudo add-apt-repository -y ppa:ubuntugis/ppa && sudo apt-get update
+
+    - sudo apt-get install -y gdal-bin libgdal-dev
 
     # Install gaia
     - git clone https://github.com/OpenDataAnalytics/gaia.git
-    - export CPLUS_INCLUDE_PATH=/usr/include/gdal
-    - export C_INCLUDE_PATH=/usr/include/gdal
     - pip install -e gaia/.
     - pip install -r gaia/requirements.txt
 
