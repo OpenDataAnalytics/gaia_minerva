@@ -84,7 +84,7 @@ setup(
     extras_require=extras,
     entry_points={
         'gaia.plugins': [
-            "girder.plugins.gaia_minerva.inputs = girder.plugins.gaia_minerva.inputs",
+            "gaia_minerva.inputs = gaia_minerva.inputs",
         ]
     }
 )

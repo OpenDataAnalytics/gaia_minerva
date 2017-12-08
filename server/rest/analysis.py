@@ -19,7 +19,7 @@
 import json
 
 from girder.api import access
-from girder.api.describe import Description
+from girder.api.describe import Description, autoDescribeRoute
 from girder.api.rest import Resource
 from girder.plugins.minerva.utility.minerva_utility import addJobOutput
 from girder.plugins.minerva.rest.dataset import Dataset
@@ -31,6 +31,7 @@ class GaiaAnalysis(Resource):
         self.resourceName = 'gaia_analysis'
         self.config = config.getConfig()
         self.route('POST', (), self.gaiaAnalysisTask)
+        self.route('POST', ('remote',), self.remoteGaiaAnalysisTask)
 
     @access.user
     def gaiaAnalysisTask(self, params):
@@ -85,3 +86,54 @@ class GaiaAnalysis(Resource):
                'JSON describing the output dataset name and Gaia process',
                paramType='body')
     )
+
+    @access.user
+    @autoDescribeRoute(
+        Description('New.')
+        .jsonParam('analysis',
+                   'JSON describing the output dataset name and Gaia process',
+                   paramType='body')
+    )
+    def remoteGaiaAnalysisTask(self, analysis, params):
+        print analysis
+
+        currentUser = self.getCurrentUser()
+
+        gaia_json = json.dumps(analysis['process'])
+        datasetName = analysis['datasetName']
+
+        minerva_metadata = {
+            'dataset_type': 'geojson',
+            'source_type': 'gaia_process',
+            'original_type': 'json',
+            'process_json': gaia_json,
+            'source': {
+                'layer_source': 'GeoJSON'
+            }
+        }
+
+        datasetResource = Dataset()
+        dataset = datasetResource.constructDataset(
+            datasetName,
+            minerva_metadata,
+            'created by Gaia'
+        )
+
+        # TODO change token to job token
+        user, token = self.getCurrentUser(returnToken=True)
+        kwargs = {
+            'params': params,
+            'user': currentUser,
+            'dataset': dataset,
+            'analysis': gaia_json,
+            'token': token
+        }
+
+        from gaia_tasks.tasks import example_task
+        result = example_task.delay(kwargs)
+        job = result.job
+
+        addJobOutput(job, dataset)
+
+        # r = result.get()
+        return job
